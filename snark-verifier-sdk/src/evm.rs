@@ -21,7 +21,7 @@ use itertools::Itertools;
 use rand::Rng;
 pub use snark_verifier::loader::evm::encode_calldata;
 use snark_verifier::{
-    loader::evm::{compile_yul, EvmLoader, ExecutorBuilder},
+    loader::evm::{compile_solidity, ExecutorBuilder, EvmLoader},
     pcs::{
         kzg::{Bdfg21, Gwc19, Kzg, KzgAccumulator, KzgDecidingKey, KzgSuccinctVerifyingKey},
         Decider, MultiOpenScheme, PolynomialCommitmentScheme,
@@ -149,11 +149,11 @@ where
     let proof = Plonk::<PCS>::read_proof(&svk, &protocol, &instances, &mut transcript);
     Plonk::<PCS>::verify(&svk, &dk, &protocol, &instances, &proof);
 
-    let yul_code = loader.yul_code();
-    let byte_code = compile_yul(&yul_code);
+    let sol_code = loader.solidity_code();
+    let byte_code = compile_solidity(&sol_code);
     if let Some(path) = path {
         path.parent().and_then(|dir| fs::create_dir_all(dir).ok()).unwrap();
-        fs::write(path, yul_code).unwrap();
+        fs::write(path, sol_code).unwrap();
     }
     byte_code
 }

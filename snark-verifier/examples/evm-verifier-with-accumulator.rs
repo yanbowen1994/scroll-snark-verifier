@@ -626,7 +626,7 @@ fn gen_aggregation_evm_verifier(
     let proof = Plonk::read_proof(&svk, &protocol, &instances, &mut transcript);
     Plonk::verify(&svk, &dk, &protocol, &instances, &proof);
 
-    evm::compile_yul(&loader.yul_code())
+    evm::compile_solidity(&loader.solidity_code())
 }
 
 fn evm_verify(deployment_code: Vec<u8>, instances: Vec<Vec<Fr>>, proof: Vec<u8>) {

@@ -7,7 +7,7 @@ mod test;
 
 pub use loader::{EcPoint, EvmLoader, Scalar};
 pub use util::{
-    compile_yul, encode_calldata, estimate_gas, fe_to_u256, modulus, u256_to_fe, ExecutorBuilder,
+    compile_solidity, encode_calldata, estimate_gas, fe_to_u256, modulus, u256_to_fe, ExecutorBuilder,
     MemoryChunk,
 };
 
